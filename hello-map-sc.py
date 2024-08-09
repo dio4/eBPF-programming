@@ -1,12 +1,15 @@
+'''
+The program shows the total number of syscall for each user ID by attaching the program to the sys_enter (tracepoint).
+'''
+
 #!/usr/bin/python3  
 from bcc import BPF
 from time import sleep
 
 program = r"""
-BPF_HASH(counter_table); // нужна для подсчета counter => uid
-BPF_PROG_ARRAY(syscall, 300); // нужна для импорта массива sc:  syscall => opcode 
+BPF_HASH(counter_table); // counter => uid
+BPF_PROG_ARRAY(syscall, 300); // syscall => opcode 
 
-// получает opcode из переданного окружения *ctx а по opcode соотв. syscall
 int hello_syscall(struct bpf_raw_tracepoint_args *ctx) {
     int opcode = ctx->args[1];
     syscall.call(ctx, opcode);
@@ -29,12 +32,6 @@ int hello_count(void *ctx) {
    return 0;
 }
 """
-
-#b = BPF(text=program)
-#syscall = b.get_syscall_fnname("execve")
-#b.attach_kprobe(event=syscall, fn_name="hello")
-
-# Attach to a tracepoint that gets hit for all syscalls
 b = BPF(text=program)
 b.attach_raw_tracepoint(tp="sys_enter", fn_name="hello_count")
 
@@ -48,8 +45,7 @@ while True:
 
 
 '''
-(base) alex@alex-Latitude-5420:~/cods/ebpf/chapter2/Exercises/3$ sudo ./hello-map-sc.py 
-[sudo] пароль для alex: 
+(base) alex:~/cods/ebpf/chapter2/Exercises/3$ sudo ./hello-map-sc.py 
 ID 0: 206   ID 1000: 2220  ID 108: 273 
 ID 104: 12  ID 0: 554   ID 1000: 6905  ID 108: 505 
 ID 104: 12  ID 0: 846   ID 1000: 10270 ID 108: 778 
