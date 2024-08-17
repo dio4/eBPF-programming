@@ -1,4 +1,5 @@
-#!/usr/bin/python3  
+#!/usr/bin/python3
+# You should see that BCC automatically creates the attachment
 from bcc import BPF
 import ctypes as ct
 #from time import sleep
@@ -10,8 +11,7 @@ RAW_TRACEPOINT_PROBE(sys_enter) {
    int opcode = ctx->args[1];
     syscall.call(ctx, opcode);
     bpf_trace_printk("Another syscall: %d", opcode);
-} // автом. присоединяет tp="sys_enter"
-
+}
 
 int hello_exec(void *ctx) {
     bpf_trace_printk("Executing a program");
@@ -100,5 +100,5 @@ b' exercise4_hello-10031   [000] ...2.  6351.171007: bpf_trace_printk: Another s
 b' gnome-terminal--4979    [005] ...2.  6351.171007: bpf_trace_printk: Another syscall: 1'
 b' gnome-terminal--4979    [005] ...2.  6351.171009: bpf_trace_printk: Another syscall: 7'
 ...
-...
+'''
 
