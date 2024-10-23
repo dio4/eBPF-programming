@@ -80,7 +80,7 @@ prog_array[ct.c_int(291)] = ct.c_int(ignore_fn.fd)
 b.trace_print()
 
 '''
-#OUTPUT
+#OUTPUT (x86_64)
 $ sudo ./RAW_TRACEPOINT_PROBE.py 
 b' gnome-terminal--4979    [005] ...2.  6351.170958: bpf_trace_printk: Another syscall: 0'
 b' gnome-terminal--4979    [005] ...2.  6351.170959: bpf_trace_printk: Another syscall: 0'
