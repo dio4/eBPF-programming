@@ -46,7 +46,7 @@ while True:
 
 '''
 Output
-(base) alex:~/cods/ebpf/chapter2/Exercises/3$ sudo ./hello-map-sc.py 
+(base) alex:~/cods/ebpf/$ sudo ./hello-map-sc.py 
 ID 0: 206   ID 1000: 2220  ID 108: 273 
 ID 104: 12  ID 0: 554   ID 1000: 6905  ID 108: 505 
 ID 104: 12  ID 0: 846   ID 1000: 10270 ID 108: 778 
